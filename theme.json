@@ -193,6 +193,13 @@
 				}
 			},
 			"core/pullquote": {
+				"elements": {
+					"cite": {
+						"typography": {
+							"fontSize": "var(--wp--preset--font-size--medium)"
+						}
+					}
+				},
 				"spacing": {
 					"margin": {
 						"bottom": "var(--wp--preset--spacing--50)",
@@ -201,13 +208,6 @@
 				},
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--large)"
-				},
-				"elements": {
-					"cite": {
-						"typography": {
-							"fontSize": "var(--wp--preset--font-size--medium)"
-						}
-					}
 				}
 			}
 		},
