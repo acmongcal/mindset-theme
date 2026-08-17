@@ -27,7 +27,7 @@ function mindset_enqueues() {
         array( 'strategy' => 'defer' ) 
     );
 
-    if(is_page( 'contact' )){
+    if(is_page(14)){
         wp_enqueue_script(
             'mindset-contact-scroll-to-top', 
             get_theme_file_uri( 'assets/js/contact-scroll-top.js' ), 
@@ -69,3 +69,7 @@ function mindset_add_custom_image_sizes( $size_names ) {
 	return array_merge( $size_names, $new_sizes );
 }
 add_filter( 'image_size_names_choose', 'mindset_add_custom_image_sizes' );
+
+// Load custom blocks.
+require get_theme_file_path() . '/mindset-blocks/mindset-blocks.php';
+
