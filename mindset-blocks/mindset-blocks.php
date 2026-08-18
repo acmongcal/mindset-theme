@@ -33,4 +33,28 @@ function mindset_register_custom_fields() {
 	);
 }
 add_action( 'init', 'mindset_register_custom_fields' );
+
+// Wrapper function for all PHP-only blocks
+function mindset_register_php_blocks() {
+    // Register our first PHP-only block, similar to block.json.
+    // First parameter: Name the block.
+    // Second parameter: Define array of arguments.
+    register_block_type(
+        'mindset-blocks/service-posts',
+        array(
+            'title'           => "Display Services",
+            'icon'            =>"book",
+            'category'        =>"text",
+            'description'     => "Outputs all the services with a navigation to each service.",
+            'keywords'        => "service",
+            'render_callback' => 'mindset_render_service_posts',
+            'supports'        => array(
+                'autoRegister' => true
+            )
+        )
+    );
+}
+// Hook into 'init' to run this code.
+add_action( 'init', 'mindset_blocks_register_php_blocks' );
+
 ?>
