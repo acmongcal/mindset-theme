@@ -35,7 +35,7 @@ function mindset_register_custom_fields() {
 add_action( 'init', 'mindset_register_custom_fields' );
 
 // Wrapper function for all PHP-only blocks
-function mindset_register_php_blocks() {
+function mindset_blocks_register_php_blocks() {
     // Register our first PHP-only block, similar to block.json.
     // First parameter: Name the block.
     // Second parameter: Define array of arguments.
@@ -56,5 +56,60 @@ function mindset_register_php_blocks() {
 }
 // Hook into 'init' to run this code.
 add_action( 'init', 'mindset_blocks_register_php_blocks' );
+
+function mindset_render_service_posts( $attributes ) {
+    ob_start();
+    ?>
+    <div <?php echo get_block_wrapper_attributes(); ?>>
+		<?php
+		$args = array(
+			'post_type' => 'fwd-service',
+			'orderby' => 'title',
+			'order' => 'ASC',
+		);
+		$query = new WP_Query( $args );
+		echo '<nav class="services-nav"><ul>';
+		if ( $query -> have_posts() ) {
+			while( $query -> have_posts() ) {
+				$query -> the_post();
+		?>
+
+			<li><a href = "#<?php the_ID(); ?>">
+			<?php
+					echo get_the_title();
+				echo '</a></li>';
+		
+			}
+			wp_reset_postdata(); 
+		}
+		echo '</ul></nav>';
+        
+        ?>
+        <?php
+		$args = array(
+			'post_type' => 'fwd-service',
+			'orderby' => 'title',
+			'order' => 'ASC',
+		);
+		$query = new WP_Query( $args );
+		if ( $query -> have_posts() ) {
+			while( $query -> have_posts() ) {
+				$query -> the_post();
+		?>
+			<article id = "<?php the_ID(); ?>">
+			<?php
+					echo '<h3>' . get_the_title() . '</h3>';
+					echo the_content();
+				echo '</article>';
+		
+			}
+			wp_reset_postdata(); 
+		}
+        
+        ?>
+    </div>
+    <?php
+    return ob_get_clean();
+}
 
 ?>

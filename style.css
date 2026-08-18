@@ -52,3 +52,14 @@ article.wp-block-group::after {
 	clear: both;
 }
 
+
+
+.services-nav ul{
+	list-style: none;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	text-align: center;
+	border: 6px double #fff200;
+	padding: 1rem;
+}
+
