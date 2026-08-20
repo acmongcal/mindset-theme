@@ -145,7 +145,7 @@ function mindset_register_custom_post_types() {
     'not_found'             => __( 'No services found.', 'mindset-theme' ),
     'not_found_in_trash'    => __( 'No Services found in Trash.', 'mindset-theme' ),
     'item_link'             => __( 'Service link.', 'mindset-theme' ),
-    'item_link_description' => __( 'A link to a testimonial.', 'mindset-theme' ),
+    'item_link_description' => __( 'A link to a service.', 'mindset-theme' ),
     );
 
     $args = array(
@@ -163,10 +163,112 @@ function mindset_register_custom_post_types() {
 }
 add_action( 'init', 'mindset_register_custom_post_types' );
 
+function mindset_register_taxonomies() {
+    // Add Work Category taxonomy
+    $labels = array(
+        'name'                  => _x( 'Work Categories', 'taxonomy general name', 'mindset-theme' ),
+        'singular_name'         => _x( 'Work Category', 'taxonomy singular name', 'mindset-theme' ),
+        'search_items'          => __( 'Search Work Categories', 'mindset-theme' ),
+        'all_items'             => __( 'All Work Category', 'mindset-theme' ),
+        'parent_item'           => __( 'Parent Work Category', 'mindset-theme' ),
+        'parent_item_colon'     => __( 'Parent Work Category:', 'mindset-theme' ),
+        'edit_item'             => __( 'Edit Work Category', 'mindset-theme' ),
+        'view_item'             => __( 'View Work Category', 'mindset-theme' ),
+        'update_item'           => __( 'Update Work Category', 'mindset-theme' ),
+        'add_new_item'          => __( 'Add New Work Category', 'mindset-theme' ),
+        'new_item_name'         => __( 'New Work Category Name', 'mindset-theme' ),
+        'template_name'         => __( 'Work Category Archives', 'mindset-theme' ),
+        'menu_name'             => __( 'Work Category', 'mindset-theme' ),
+        'not_found'             => __( 'No work categories found.', 'mindset-theme' ),
+        'no_terms'              => __( 'No work categories', 'mindset-theme' ),
+        'items_list_navigation' => __( 'Work Categories list navigation', 'mindset-theme' ),
+        'items_list'            => __( 'Work Categories list', 'mindset-theme' ),
+        'item_link'             => __( 'Work Category Link', 'mindset-theme' ),
+        'item_link_description' => __( 'A link to a work category.', 'mindset-theme' ),
+    );
+    $args = array(
+        'labels'            => $labels,
+        'public'            => true,
+        'show_in_rest'      => true,
+        'show_admin_column' => true,
+        'hierarchical'      => true,
+        'rewrite'           => array( 'slug' => 'work-categories' ),
+    );
+    register_taxonomy( 'fwd-work-category', array( 'fwd-work' ), $args );
+
+    $labels = array(
+        'name'                  => _x( 'Featured', 'taxonomy general name', 'mindset-theme' ),
+        'singular_name'         => _x( 'Featured', 'taxonomy singular name', 'mindset-theme' ),
+        'search_items'          => __( 'Search Featured', 'mindset-theme' ),
+        'all_items'             => __( 'All Featured', 'mindset-theme' ),
+        'parent_item'           => __( 'Parent Featured', 'mindset-theme' ),
+        'parent_item_colon'     => __( 'Parent Featured:', 'mindset-theme' ),
+        'edit_item'             => __( 'Edit Featured', 'mindset-theme' ),
+        'view_item'             => __( 'View Featured', 'mindset-theme' ),
+        'update_item'           => __( 'Update Featured', 'mindset-theme' ),
+        'add_new_item'          => __( 'Add New Featured', 'mindset-theme' ),
+        'new_item_name'         => __( 'New Work Featured', 'mindset-theme' ),
+        'menu_name'             => __( 'Featured', 'mindset-theme' ),
+        'template_name'         => __( 'Featured Archives', 'mindset-theme' ),
+        'not_found'             => __( 'No featured found.', 'mindset-theme' ),
+        'no_terms'              => __( 'No featured', 'mindset-theme' ),
+        'items_list_navigation' => __( 'Featured list navigation', 'mindset-theme' ),
+        'items_list'            => __( 'Featured list', 'mindset-theme' ),
+        'item_link'             => __( 'Featured Link', 'mindset-theme' ),
+        'item_link_description' => __( 'A link to a featured.', 'mindset-theme' ),
+    );
+    
+    $args = array(
+        'labels'            => $labels,
+        'public'            => true,
+        'show_in_rest'      => true,
+        'show_admin_column' => true,
+        'hierarchical'      => true,
+        'rewrite'           => array( 'slug' => 'featured' ),
+    );
+    
+    register_taxonomy( 'fwd-featured', array( 'fwd-work', 'fwd-testimonial' ), $args );
+
+    $labels = array(
+        'name'                  => _x( 'Service Type', 'taxonomy general name', 'mindset-theme' ),
+        'singular_name'         => _x( 'Service Type', 'taxonomy singular name', 'mindset-theme' ),
+        'search_items'          => __( 'Search Service Type', 'mindset-theme' ),
+        'all_items'             => __( 'All Service Type', 'mindset-theme' ),
+        'parent_item'           => __( 'Parent Service Type', 'mindset-theme' ),
+        'parent_item_colon'     => __( 'Parent Service Type:', 'mindset-theme' ),
+        'edit_item'             => __( 'Edit Service Type', 'mindset-theme' ),
+        'view_item'             => __( 'View Service Type', 'mindset-theme' ),
+        'update_item'           => __( 'Update Service Type', 'mindset-theme' ),
+        'add_new_item'          => __( 'Add New Service Type', 'mindset-theme' ),
+        'new_item_name'         => __( 'New Service Type', 'mindset-theme' ),
+        'menu_name'             => __( 'Service Type', 'mindset-theme' ),
+        'template_name'         => __( 'Service Type Archives', 'mindset-theme' ),
+        'not_found'             => __( 'No service type found.', 'mindset-theme' ),
+        'no_terms'              => __( 'No service type', 'mindset-theme' ),
+        'items_list_navigation' => __( 'Service Type list navigation', 'mindset-theme' ),
+        'items_list'            => __( 'Service Type list', 'mindset-theme' ),
+        'item_link'             => __( 'Service Type Link', 'mindset-theme' ),
+        'item_link_description' => __( 'A link to a service type.', 'mindset-theme' ),
+    );
+    
+    $args = array(
+        'labels'            => $labels,
+        'public'            => true,
+        'show_in_rest'      => true,
+        'show_admin_column' => true,
+        'hierarchical'      => true,
+        'rewrite'           => array( 'slug' => 'service-type' ),
+    );
+    
+    register_taxonomy( 'fwd-service-type', array( 'fwd-service' ), $args );
+}
+add_action( 'init', 'mindset_register_taxonomies' );
+
 
 //This will flush permalinks when switching themes
 function mindset_rewrite_flush() {
     mindset_register_custom_post_types();
+    mindset_register_taxonomies();
     flush_rewrite_rules();
 }
 add_action( 'after_switch_theme', 'mindset_rewrite_flush' );

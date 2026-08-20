@@ -49,7 +49,18 @@ function mindset_blocks_register_php_blocks() {
             'keywords'        => "service",
             'render_callback' => 'mindset_render_service_posts',
             'supports'        => array(
-                'autoRegister' => true
+                'autoRegister' => true,
+                'spacing' => array(
+                    'margin' => true
+                )
+            ),
+            'attributes' => array(
+                'sorting' => array(
+                    'type' => 'string',
+                    'enum' => array('ASC', 'DESC'),
+                    'default' => 'ASC',
+                    'label' => 'Sort A-Z or Z-A'
+                )
             )
         )
     );
@@ -86,24 +97,42 @@ function mindset_render_service_posts( $attributes ) {
         
         ?>
         <?php
-		$args = array(
-			'post_type' => 'fwd-service',
-			'orderby' => 'title',
-			'order' => 'ASC',
+		$terms = get_terms( 
+			array(
+				'taxonomy' => 'fwd-service-type',
+			) 
 		);
-		$query = new WP_Query( $args );
-		if ( $query -> have_posts() ) {
-			while( $query -> have_posts() ) {
-				$query -> the_post();
+		if ( $terms && ! is_wp_error( $terms ) ) {
+			foreach ( $terms as $term ) {
+				echo '<h2>' .$term->name. '</h2>';
+				$args = array(
+					'post_type' => 'fwd-service',
+					'posts_per_page' => -1,
+					'orderby' => 'title',
+					'order' => 'ASC',
+					'tax_query' => array(
+						array(
+							'taxonomy' => 'fwd-service-type',
+							'field'    => 'slug',
+							'terms'    => $term->slug
+						)
+					)
+				);
+				$query = new WP_Query( $args );
+				if ( $query -> have_posts() ) {
+					while( $query -> have_posts() ) {
+						$query -> the_post();
 		?>
-			<article id = "<?php the_ID(); ?>">
-			<?php
-					echo '<h3>' . get_the_title() . '</h3>';
-					echo the_content();
-				echo '</article>';
-		
+					<article id = "<?php the_ID(); ?>">
+					<?php
+							echo '<h3>' . get_the_title() . '</h3>';
+							echo the_content();
+						echo '</article>';
+				
+					}
+					wp_reset_postdata(); 
+				}
 			}
-			wp_reset_postdata(); 
 		}
         
         ?>
