@@ -97,9 +97,10 @@ function mindset_render_service_posts( $attributes ) {
         
         ?>
         <?php
+		$taxonomy = 'fwd-service-type';
 		$terms = get_terms( 
 			array(
-				'taxonomy' => 'fwd-service-type',
+				'taxonomy' => $taxonomy,
 			) 
 		);
 		if ( $terms && ! is_wp_error( $terms ) ) {
@@ -112,7 +113,7 @@ function mindset_render_service_posts( $attributes ) {
 					'order' => 'ASC',
 					'tax_query' => array(
 						array(
-							'taxonomy' => 'fwd-service-type',
+							'taxonomy' => $taxonomy,
 							'field'    => 'slug',
 							'terms'    => $term->slug
 						)
