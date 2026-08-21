@@ -133,6 +133,18 @@ return array(
 			'pagination' => array(
 				'type' => 'boolean',
 				'default' => true
+			),
+			'arrowColor' => array(
+				'type' => 'string',
+				'default' => '#FFF200'
+			),
+			'activePaginationColor' => array(
+				'type' => 'string',
+				'default' => '#FFF200'
+			),
+			'inactivePaginationColor' => array(
+				'type' => 'string',
+				'default' => '#9e9828'
 			)
 		),
 		'textdomain' => 'testimonial-slider',

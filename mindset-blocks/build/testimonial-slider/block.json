@@ -20,6 +20,18 @@
     "pagination": {
       "type": "boolean",
       "default": true
+    },
+    "arrowColor": {
+      "type": "string",
+      "default": "#FFF200"
+    },
+    "activePaginationColor": {
+      "type": "string",
+      "default": "#FFF200"
+    },
+    "inactivePaginationColor": {
+      "type": "string",
+      "default": "#9e9828"
     }
   },
   "textdomain": "testimonial-slider",

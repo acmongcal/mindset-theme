@@ -1,10 +1,13 @@
 <?php
+$styles = "--slider-arrow-color: " . $attributes[ "arrowColor" ] . ";";
+$styles .= "--slider-active-pagination-color: " . $attributes[ "activePaginationColor" ] . ";";
+$styles .= "--slider-inactive-pagination-color: " . $attributes[ "inactivePaginationColor" ];
 $swiper_settings = array(
     'pagination' => $attributes['pagination'],
     'navigation' => $attributes['navigation']
 );
 ?>
-<div <?php echo get_block_wrapper_attributes(); ?>>
+<div <?php echo get_block_wrapper_attributes(array( "style" => $styles )); ?>>
     <script>
         const swiper_settings = <?php echo json_encode( $swiper_settings ); ?>;
     </script>

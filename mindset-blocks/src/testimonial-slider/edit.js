@@ -2,15 +2,31 @@
 * Imports.
 */
 import { __ } from '@wordpress/i18n';
-import { InspectorControls, useBlockProps  } from '@wordpress/block-editor';
+import { InspectorControls, useBlockProps, PanelColorSettings  } from '@wordpress/block-editor';
 import { PanelBody, PanelRow, ToggleControl } from '@wordpress/components';
 
 /**
 * Export.
 */
 export default function Edit( {attributes, setAttributes} ) {
-    const { navigation, pagination } = attributes;
-    
+    const { navigation, pagination, arrowColor,activePaginationColor,inactivePaginationColor  } = attributes;
+    // define the styles object
+    const styles = {
+        "--slider-arrow-color": arrowColor,
+        "--slider-active-pagination-color": activePaginationColor,
+        "--slider-inactive-pagination-color": inactivePaginationColor
+    };
+
+    // define the onChange functions
+    const onChangeSliderArrowColor = ( val ) => {
+        setAttributes( { arrowColor: val } );
+    };
+    const onChangeActivePaginationColor = ( val ) => {
+        setAttributes( { activePaginationColor: val } );
+    };
+    const onChangeInactivePaginationColor = ( val ) => {
+        setAttributes( { inactivePaginationColor: val } );
+    };
     return (
         <>
             <InspectorControls>
@@ -36,8 +52,28 @@ export default function Edit( {attributes, setAttributes} ) {
                         />
                     </PanelRow>
                 </PanelBody>
+                <PanelColorSettings
+                    title={ __( 'Slider Navigation Colors' ) }
+                    colorSettings={ [
+                        {
+                        value: arrowColor,
+                        onChange: onChangeSliderArrowColor,
+                        label: __( 'Arrow color' ),
+                        },
+                        {
+                        value: activePaginationColor,
+                        onChange: onChangeActivePaginationColor,
+                        label: __( 'Active Pagination Color' ),
+                        },
+                        {
+                        value: inactivePaginationColor,
+                        onChange: onChangeInactivePaginationColor,
+                        label: __( 'Inactive Pagination Color' ),
+                        },
+                    ] }
+                />
             </InspectorControls>
-            <div { ...useBlockProps() }>
+            <div { ...useBlockProps( { style: styles } ) }>
                 <div className="swiper swiper-initialized swiper-horizontal swiper-autoheight swiper-backface-hidden"> 
                     <div className="swiper-wrapper">
                         <div className="swiper-slide">

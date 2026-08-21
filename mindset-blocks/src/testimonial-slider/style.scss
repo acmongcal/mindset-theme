@@ -20,9 +20,15 @@
 .swiper-button-prev {
     background: none;
     border: none;
+    color: var(--slider-arrow-color);
 }
 
 .swiper-pagination-bullet {
     width: 1rem;
     height: 1rem;
+    background: var(--slider-inactive-pagination-color);
+}
+
+.swiper-pagination-bullet-active {
+    background: var(--slider-active-pagination-color);
 }
